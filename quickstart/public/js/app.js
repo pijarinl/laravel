@@ -27838,7 +27838,6 @@ var createTopics = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TaskList__ = __webpack_require__(295);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__newId__ = __webpack_require__(296);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27846,7 +27845,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 
 
 
@@ -27873,6 +27871,7 @@ var Task1 = function (_React$Component) {
 
 		_this.onChange = _this.onChange.bind(_this);
 		_this.addTask = _this.addTask.bind(_this);
+		_this.taskRemove = _this.taskRemove.bind(_this);
 		return _this;
 	}
 
@@ -27900,6 +27899,18 @@ var Task1 = function (_React$Component) {
 			this.setState({ task: e.target.value });
 		}
 	}, {
+		key: 'taskRemove',
+		value: function taskRemove(taskId) {
+			console.log(taskId);
+			var items = this.state.items;
+			items = items.filter(function (eT) {
+				return eT.id !== taskId;
+			});
+
+			this.setState({ items: items });
+			return;
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -27920,7 +27931,7 @@ var Task1 = function (_React$Component) {
 						'Add Task'
 					)
 				),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TaskList__["a" /* default */], { items: this.state.items })
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TaskList__["a" /* default */], { items: this.state.items, remove: this.taskRemove })
 			);
 		}
 	}]);
@@ -27951,15 +27962,29 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var TaskList = function (_Component) {
 	_inherits(TaskList, _Component);
 
-	function TaskList() {
+	function TaskList(props) {
 		_classCallCheck(this, TaskList);
 
-		return _possibleConstructorReturn(this, (TaskList.__proto__ || Object.getPrototypeOf(TaskList)).apply(this, arguments));
+		var _this = _possibleConstructorReturn(this, (TaskList.__proto__ || Object.getPrototypeOf(TaskList)).call(this, props));
+
+		_this.removeTask = _this.removeTask.bind(_this);
+		return _this;
 	}
 
 	_createClass(TaskList, [{
+		key: 'removeTask',
+		value: function removeTask(taskId, event) {
+
+			event.preventDefault();
+			console.log('remove: ' + taskId);
+			this.props.remove(taskId);
+
+			return;
+		}
+	}, {
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
 
 			var displayTask = function displayTask(task) {
 				return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -27976,7 +28001,13 @@ var TaskList = function (_Component) {
 					return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'li',
 						{ key: item.id },
-						item.taskName
+						item.taskName,
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'button',
+							{ type: 'button',
+								onClick: _this2.removeTask.bind('this', item.id) },
+							'Delete'
+						)
 					);
 				})
 			);
@@ -27987,24 +28018,6 @@ var TaskList = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /* harmony default export */ __webpack_exports__["a"] = (TaskList);
-
-/***/ }),
-/* 296 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-
-
-var lastId = 0;
-
-/* unused harmony default export */ var _unused_webpack_default_export = (function () {
-	var prefix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'id';
-
-	lastId++;
-	return '' + prefix + lastId;
-});
 
 /***/ })
 /******/ ]);

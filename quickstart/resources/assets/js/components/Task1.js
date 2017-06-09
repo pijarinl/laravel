@@ -1,6 +1,5 @@
 import React from 'react';
 import TaskList from './TaskList';
-import newId from './newId';
 
 class Task1 extends React.Component{
 
@@ -24,6 +23,7 @@ class Task1 extends React.Component{
 
 	 	this.onChange = this.onChange.bind(this);
 	 	this.addTask = this.addTask.bind(this);
+	 	this.taskRemove = this.taskRemove.bind(this);
 	 };
 
 	addTask(taskName, event){
@@ -48,6 +48,16 @@ class Task1 extends React.Component{
 		this.setState({task: e.target.value});
 
 	}
+	taskRemove(taskId){
+		console.log(taskId)
+		var items = this.state.items;
+		items = items.filter(function(eT){
+			return eT.id !==taskId;
+		});
+		
+		this.setState({items});
+		return;
+	}
 
 	render(){
 		return(
@@ -57,7 +67,7 @@ class Task1 extends React.Component{
 					<input onChange={this.onChange} value={this.state.task}/>
 					<button>Add Task</button>
 				</form>
-				<TaskList items={this.state.items} />
+				<TaskList items={this.state.items} remove={this.taskRemove} />
 			</div>
 
 			);
