@@ -12,9 +12,13 @@
 */
 
 Route::get('/', function () {
-
-	$name = 'Pank';
-    return view('welcome',compact('name'));
+    return view('welcome');
+});
+Route::get('/about', function () {
+    return view('welcome');
+});
+Route::get('/topics', function () {
+    return view('welcome');
 });
 
 Route::get('/tasks', 'TaskController@index');
@@ -23,3 +27,16 @@ Route::delete('/task/{task}', 'TaskController@destroy');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/count',function(){
+ 	return view('count');
+});
+Route::get('/count/home',function(){
+ 	return view('count');
+});
+Route::get('/count/{task}',function(){
+ 	return view('count');
+});
+Route::get('/react',function(){
+	return view('react');
+});
