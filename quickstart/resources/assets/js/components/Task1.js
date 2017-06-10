@@ -54,20 +54,27 @@ class Task1 extends React.Component{
 		items = items.filter(function(eT){
 			return eT.id !==taskId;
 		});
-		
+
 		this.setState({items});
 		return;
 	}
 
 	render(){
 		return(
-			<div>
+			<div className="form-group">
 				<form onSubmit={this.addTask.bind('this', this.state.task)}>
-					<label> Task </label>
-					<input onChange={this.onChange} value={this.state.task}/>
-					<button>Add Task</button>
+					<label  className="col-sm-3 control-label"> Task </label>
+					<input onChange={this.onChange} value={this.state.task} className="form-control"/>
+					<button className="btn btn-default fa fa-plus">Add Task</button>
 				</form>
-				<TaskList items={this.state.items} remove={this.taskRemove} />
+				<div className = "panel panel-default">
+					<div className="panel-heading">
+                   	 	Current Tasks
+                	</div>
+                	<div className="panel-body">
+						<TaskList items={this.state.items} remove={this.taskRemove} />
+					</div>
+				</div>
 			</div>
 
 			);

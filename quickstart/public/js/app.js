@@ -27915,23 +27915,36 @@ var Task1 = function (_React$Component) {
 		value: function render() {
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
-				null,
+				{ className: 'form-group' },
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'form',
 					{ onSubmit: this.addTask.bind('this', this.state.task) },
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'label',
-						null,
+						{ className: 'col-sm-3 control-label' },
 						' Task '
 					),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: this.onChange, value: this.state.task }),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: this.onChange, value: this.state.task, className: 'form-control' }),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'button',
-						null,
+						{ className: 'btn btn-default fa fa-plus' },
 						'Add Task'
 					)
 				),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TaskList__["a" /* default */], { items: this.state.items, remove: this.taskRemove })
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'div',
+					{ className: 'panel panel-default' },
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'panel-heading' },
+						'Current Tasks'
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'panel-body' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TaskList__["a" /* default */], { items: this.state.items, remove: this.taskRemove })
+					)
+				)
 			);
 		}
 	}]);
@@ -27995,21 +28008,53 @@ var TaskList = function (_Component) {
 			};
 
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				'ul',
-				null,
-				this.props.items.map(function (item, index) {
-					return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						'li',
-						{ key: item.id },
-						item.taskName,
-						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-							'button',
-							{ type: 'button',
-								onClick: _this2.removeTask.bind('this', item.id) },
-							'Delete'
-						)
-					);
-				})
+				'table',
+				{ className: 'table table-striped task-table' },
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'thead',
+					null,
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'th',
+						null,
+						'Task'
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'th',
+						null,
+						'\xA0'
+					)
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'tbody',
+					null,
+					this.props.items.map(function (item, index) {
+						return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'tr',
+							null,
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'td',
+								{ className: 'table-text', key: item.id },
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'div',
+									null,
+									' ',
+									item.taskName,
+									' '
+								)
+							),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'td',
+								null,
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'button',
+									{ type: 'button',
+										className: 'btn btn-danger', onClick: _this2.removeTask.bind('this', item.id) },
+									'Delete'
+								)
+							)
+						);
+					})
+				)
 			);
 		}
 	}]);

@@ -22,14 +22,24 @@ class TaskList extends Component {
 		var displayTask = (task) => <li>{task}</li>;
 
 		return (
-			<ul>
+			<table className="table table-striped task-table">
+				<thead>
+                    <th>Task</th>
+                    <th>&nbsp;</th>
+                </thead>
+                <tbody>
 				{this.props.items.map((item,index) => {
-					return <li key={item.id}>{item.taskName}
-						<button type="button" 
-							onClick={this.removeTask.bind('this',item.id)}>Delete
-						</button></li>
+					return <tr><td  className="table-text" key={item.id}> 
+								<div> {item.taskName} </div> 
+							</td>
+							<td>
+								<button type="button" 
+									 className="btn btn-danger" onClick={this.removeTask.bind('this',item.id)}>Delete
+								</button>
+							</td></tr>	
 				})}
-			</ul>
+				</tbody>
+			</table>
 		);
 	}
 }
