@@ -22,8 +22,7 @@ Route::get('/topics', function () {
 });
 
 Route::get('/tasks', 'TaskController@index');
-Route::post('/task', 'TaskController@store');
-Route::delete('/task/{task}', 'TaskController@destroy');
+
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
@@ -37,6 +36,4 @@ Route::get('/count/home',function(){
 Route::get('/count/{task}',function(){
  	return view('count');
 });
-Route::get('/react',function(){
-	return view('react');
-});
+Route::get('/react','ReactController@index');

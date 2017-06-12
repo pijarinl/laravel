@@ -1,5 +1,6 @@
 import React from 'react';
 import TaskList from './TaskList';
+import update from 'immutability-helper';
 
 class Task1 extends React.Component{
 
@@ -23,7 +24,9 @@ class Task1 extends React.Component{
 
 	 	this.onChange = this.onChange.bind(this);
 	 	this.addTask = this.addTask.bind(this);
-	 	this.taskRemove = this.taskRemove.bind(this);
+	 	this.removeTask = this.removeTask.bind(this);
+	 	this.saveTask = this.saveTask.bind(this);
+
 	 };
 
 	addTask(taskName, event){
@@ -48,7 +51,8 @@ class Task1 extends React.Component{
 		this.setState({task: e.target.value});
 
 	}
-	taskRemove(taskId){
+
+	removeTask(taskId){
 		console.log(taskId)
 		var items = this.state.items;
 		items = items.filter(function(eT){
@@ -59,10 +63,22 @@ class Task1 extends React.Component{
 		return;
 	}
 
+	saveTask(idTask,newTask){
+		// console.log(this.state.items);
+		var index = this.state.items.findIndex(item => item.id == idTask)
+		// item.taskName = newTask;
+		this.setState({items: update(this.state.items, {
+			[index]: {
+				taskName: {$set: newTask}
+			}
+		})})
+		// console.log(this.state.items)
+	}
+
 	render(){
 		return(
 			<div className="form-group">
-				<form onSubmit={this.addTask.bind('this', this.state.task)}>
+				<form onSubmit={this.addTask.bind('this', this.state.task)} className="form-horizontal">
 					<label  className="col-sm-3 control-label"> Task </label>
 					<input onChange={this.onChange} value={this.state.task} className="form-control"/>
 					<button className="btn btn-default fa fa-plus">Add Task</button>
@@ -72,7 +88,9 @@ class Task1 extends React.Component{
                    	 	Current Tasks
                 	</div>
                 	<div className="panel-body">
-						<TaskList items={this.state.items} remove={this.taskRemove} />
+						<TaskList items={this.state.items}
+							removeTask={this.removeTask} 
+							saveTask={this.saveTask}/>
 					</div>
 				</div>
 			</div>

@@ -56,6 +56,17 @@
                                     <td class="table-text">
                                         <div>{{ $task->name }}</div>
                                     </td>
+                                    <!-- Edit Button -->
+                                    <td>
+                                        <form action="{{ url('task/put/'.$task->id) }}" method="PUT">
+                                            {{ csrf_field() }}
+                                            {{ method_field('EDIT') }}
+
+                                            <button type="submit" id="edit-task-{{ $task->id }}" class="btn btn-warning">
+                                                <i class="fa fa-btn fa-trash"></i>Edit
+                                            </button>
+                                        </form>
+                                    </td>
                                     <!-- Delete Button -->
                                     <td>
                                         <form action="{{ url('task/'.$task->id) }}" method="POST">
