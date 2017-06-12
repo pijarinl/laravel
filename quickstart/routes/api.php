@@ -16,6 +16,3 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('/task', 'TaskController@store');
-Route::put('/task/put/{task}','TaskController@edit');
-Route::delete('/task/{task}', 'TaskController@destroy');

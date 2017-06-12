@@ -22,14 +22,26 @@ class Task1 extends React.Component{
 	 	this.removeTask = this.removeTask.bind(this);
 	 	this.saveTask = this.saveTask.bind(this);
 	 	this.createTask = this.createTask.bind(this);
+	 	this.getTasks = this.getTasks.bind(this);
+
 	 };
 	componentWillMount() {
+		
+		TaskStore.on("change",this.getTasks);
+		console.log("count",TaskStore.listenerCount("change"));
+	}
+	componentWillUnmount() {
+		TaskStore.removeListener("change",this.getTasks);
+	}
+
+	getTasks(){
 		TaskStore.on("change",() => {
 			this.setState({
 				items: TaskStore.getAll(),
-			})
-		})
+			});
+		});
 	}
+
 	addTask(taskName, event){
 
 		event.preventDefault();
@@ -80,6 +92,9 @@ class Task1 extends React.Component{
 		TaskActions.createTask(taskName);
 	}
 
+	reloadTask(){
+		TaskActions.reloadTask();
+	}
 	render(){
 		return(
 			<div className="form-group">
@@ -93,7 +108,10 @@ class Task1 extends React.Component{
 				<button className="btn btn-default fa fa-plus" onClick={this.createTask.bind('this',this.state.task)}>
 					TestFlux
 				</button>
-				
+				<button className="btn btn-default fa fa-plus" onClick={this.reloadTask}>
+					Reload
+				</button>
+
 				<div className = "panel panel-default">
 					<div className="panel-heading">
                    	 	Current Tasks

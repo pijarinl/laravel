@@ -12708,12 +12708,26 @@ var Task1 = function (_React$Component) {
 		_this.removeTask = _this.removeTask.bind(_this);
 		_this.saveTask = _this.saveTask.bind(_this);
 		_this.createTask = _this.createTask.bind(_this);
+		_this.getTasks = _this.getTasks.bind(_this);
+
 		return _this;
 	}
 
 	_createClass(Task1, [{
 		key: 'componentWillMount',
 		value: function componentWillMount() {
+
+			__WEBPACK_IMPORTED_MODULE_4__store_TaskStore__["a" /* default */].on("change", this.getTasks);
+			console.log("count", __WEBPACK_IMPORTED_MODULE_4__store_TaskStore__["a" /* default */].listenerCount("change"));
+		}
+	}, {
+		key: 'componentWillUnmount',
+		value: function componentWillUnmount() {
+			__WEBPACK_IMPORTED_MODULE_4__store_TaskStore__["a" /* default */].removeListener("change", this.getTasks);
+		}
+	}, {
+		key: 'getTasks',
+		value: function getTasks() {
 			var _this2 = this;
 
 			__WEBPACK_IMPORTED_MODULE_4__store_TaskStore__["a" /* default */].on("change", function () {
@@ -12777,6 +12791,11 @@ var Task1 = function (_React$Component) {
 			__WEBPACK_IMPORTED_MODULE_3__action_TaskActions__["a" /* createTask */](taskName);
 		}
 	}, {
+		key: 'reloadTask',
+		value: function reloadTask() {
+			__WEBPACK_IMPORTED_MODULE_3__action_TaskActions__["b" /* reloadTask */]();
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -12801,6 +12820,11 @@ var Task1 = function (_React$Component) {
 					'button',
 					{ className: 'btn btn-default fa fa-plus', onClick: this.createTask.bind('this', this.state.task) },
 					'TestFlux'
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'button',
+					{ className: 'btn btn-default fa fa-plus', onClick: this.reloadTask },
+					'Reload'
 				),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'div',
@@ -28386,7 +28410,16 @@ var TaskStore = function (_EventEmitter) {
       switch (action.type) {
         case "CREATE_TASK":
           {
+
             this.createTask(action.taskName);
+            break;
+          }
+        case "RECEIVE_TASK":
+          {
+
+            this.items = action.items;
+            this.emit("change");
+            break;
           }
       }
       console.log("Task an action ", action);
@@ -28982,6 +29015,7 @@ module.exports = Dispatcher;
 /* harmony export (immutable) */ __webpack_exports__["a"] = createTask;
 /* unused harmony export deleteTask */
 /* unused harmony export editTask */
+/* harmony export (immutable) */ __webpack_exports__["b"] = reloadTask;
 
 
 function createTask(taskName) {
@@ -29001,6 +29035,25 @@ function editTask(id) {
 		type: "EDIT_TASK",
 		id: id
 	});
+}
+function reloadTask() {
+	// axios("http://someurl.com/somedataendpoint").then((data)=>{
+	// 	console.log("got the data",data)
+	// })
+	__WEBPACK_IMPORTED_MODULE_0__dispatcher__["a" /* default */].dispatch({ type: "FETCH_TASK" });
+	setTimeout(function () {
+		__WEBPACK_IMPORTED_MODULE_0__dispatcher__["a" /* default */].dispatch({ type: "RECEIVE_TASK", items: [{
+				id: 34,
+				taskName: 'test3 for task'
+			}, {
+				id: 43,
+				taskName: 'test4 for task'
+			}] });
+
+		if (false) {
+			dispatcher.dispatch({ type: "FETCH_TASK_ERROR" });
+		}
+	}, 1000);
 }
 
 /***/ })

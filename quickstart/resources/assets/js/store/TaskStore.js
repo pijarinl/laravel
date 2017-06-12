@@ -35,8 +35,17 @@ class TaskStore extends EventEmitter{
  	handleAction(action){
  		//respone only we care about if not dont do anything
  		switch(action.type){
- 			case "CREATE_TASK" : {
+ 			case "CREATE_TASK": {
+
  				this.createTask(action.taskName);
+ 				break;
+
+ 			}
+ 			case "RECEIVE_TASK": {
+
+ 				this.items = action.items;
+ 				this.emit("change");
+ 				break;
  			}
  		}
  		console.log("Task an action ", action);
@@ -45,7 +54,7 @@ class TaskStore extends EventEmitter{
 }
 const taskStore = new TaskStore;
 
-
 dispatcher.register(taskStore.handleAction.bind(taskStore));
 window.dispatcher = dispatcher; 
 export default taskStore;
+
