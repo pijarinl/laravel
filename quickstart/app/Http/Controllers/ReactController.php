@@ -10,9 +10,6 @@ class ReactController extends Controller
     //
     public function index()
 	{
-    	// return view('tasks.index');
-    	// $tasks = $request->user()->tasks()->get();
-    	// $tasks = Task::all();
 	    return view('react');
 	}
 	public function store() {

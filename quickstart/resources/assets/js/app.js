@@ -8,7 +8,6 @@ import createTopics from './components/createTopics';
 
 import Task1 from './components/Task1';
 
-import NotFound from'./components/NotFound' ;
 
 render((
 	<Router history={browserHistory}>
@@ -17,7 +16,6 @@ render((
 				<Route path='/count/test1' component={createAbout} />
 				<Route path='/count/test2' component={createTopics} />
 
-				<Route path='*' component={NotFound} />
 			</Route> 
 			<Route path="/react" component={Task1} />
 		</div>

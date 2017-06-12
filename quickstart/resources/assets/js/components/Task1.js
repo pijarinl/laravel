@@ -2,6 +2,10 @@ import React from 'react';
 import TaskList from './TaskList';
 import update from 'immutability-helper';
 
+import * as TaskActions from '../action/TaskActions';
+import TaskStore from '../store/TaskStore';
+
+
 class Task1 extends React.Component{
 
 	constructor() {
@@ -9,16 +13,7 @@ class Task1 extends React.Component{
 
 	 	this.state = {
 	 		
-	 		items:[
-	 			{
-	 				id:1,
-	 			  	taskName:'test for task'
-	 			},
-	 			{
-	 				id:2,
-	 				taskName:'test2 for task'
-	 			}
-	 		],
+	 		items:TaskStore.getAll(),
 	 		task : ''
 	 	}
 
@@ -26,9 +21,15 @@ class Task1 extends React.Component{
 	 	this.addTask = this.addTask.bind(this);
 	 	this.removeTask = this.removeTask.bind(this);
 	 	this.saveTask = this.saveTask.bind(this);
-
+	 	this.createTask = this.createTask.bind(this);
 	 };
-
+	componentWillMount() {
+		TaskStore.on("change",() => {
+			this.setState({
+				items: TaskStore.getAll(),
+			})
+		})
+	}
 	addTask(taskName, event){
 
 		event.preventDefault();
@@ -75,14 +76,24 @@ class Task1 extends React.Component{
 		// console.log(this.state.items)
 	}
 
+	createTask(taskName){
+		TaskActions.createTask(taskName);
+	}
+
 	render(){
 		return(
 			<div className="form-group">
+				
 				<form onSubmit={this.addTask.bind('this', this.state.task)} className="form-horizontal">
 					<label  className="col-sm-3 control-label"> Task </label>
 					<input onChange={this.onChange} value={this.state.task} className="form-control"/>
 					<button className="btn btn-default fa fa-plus">Add Task</button>
 				</form>
+
+				<button className="btn btn-default fa fa-plus" onClick={this.createTask.bind('this',this.state.task)}>
+					TestFlux
+				</button>
+				
 				<div className = "panel panel-default">
 					<div className="panel-heading">
                    	 	Current Tasks

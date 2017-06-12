@@ -36,4 +36,5 @@ Route::get('/count/home',function(){
 Route::get('/count/{task}',function(){
  	return view('count');
 });
+
 Route::get('/react','ReactController@index');
